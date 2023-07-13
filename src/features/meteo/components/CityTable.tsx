@@ -1,57 +1,48 @@
 import { Box } from '@chakra-ui/react';
 
 import {
-  DataTable,
-  DataTableProps,
+   DataTable,
+   DataTableProps,
 } from '@/components/data-table';
-import { Link } from '@/components/link';
-
 import { CityTableData } from '../types';
-import { City } from '../types';
-
+import React, { ReactElement } from 'react';
 
 export type CitysListProps = {
-  cities: CityTableData[];
-  isLoading?: boolean;
+   children: ReactElement
 };
 
 const getTableColumns = (
 ) => {
-  const tableColumns: DataTableProps<CityTableData>['columns'] = [
-    {
-      title: 'City',
-      field: 'name',
-    },
-    {
-      title: 'Temperature max',
-      field: 'temperature_max',
-    },
-    {
-      title: 'Temperature min',
-      field: 'temperature_min',
-    },
-    {
-      title: 'Wind Direction',
-      field: 'windDirection_dominant',
-    },
-  ];
+   const tableColumns: DataTableProps<CityTableData>['columns'] = [
+      {
+         title: 'City',
+         field: 'name',
+      },
+      {
+         title: 'Temperature max',
+         field: 'temperature_max',
+      },
+      {
+         title: 'Temperature min',
+         field: 'temperature_min',
+      },
+      {
+         title: 'Wind Direction',
+         field: 'windDirection_dominant',
+      },
+   ];
 
-  return tableColumns;
+   return tableColumns;
 };
 
 export const CityTable = ({
-cities,
-  isLoading,
+   children
 }: CitysListProps) => {
-  const tableColumns = getTableColumns();
-
-  return (
-    <Box>
-      <DataTable
-        isLoading={isLoading || false}
-        data={cities}
-        columns={tableColumns}
-      />
-    </Box>
-  );
+   const tableColumns = getTableColumns();
+   const element = React.cloneElement(React.Children.only(children), { columns: tableColumns })
+   return (
+      <Box>
+         {element}
+      </Box>
+   );
 };

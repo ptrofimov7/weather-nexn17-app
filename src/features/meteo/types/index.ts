@@ -20,10 +20,12 @@ export type City =  Entity & {
 export type CityFilters = {
   temperature_min: number,
   temperature_max: number,
-  country_code?: Array<string>| null
+  country_code?: string | number | (string | number)[]
 }
 
 
 export type WeatherFilter = {
-  ids: Array<number>| null, temperature_min: number, temperature_max: number
+  ids: Array<number>| null | undefined, temperature_min: number | undefined, temperature_max: number | undefined
 }
+
+export type CountryFilter = { label: string; value: string | undefined;}

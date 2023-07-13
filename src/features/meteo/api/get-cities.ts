@@ -12,7 +12,7 @@ export const getCities = async (country_codes?: Array<string>): Promise<City[]> 
 };
 
 
-export const getCitiesIds = async (countries?: Array<string> | null): Promise<number[]> => {
+export const getCitiesIds = async (countries?: string | number | (string | number)[] | undefined): Promise<number[]> => {
    let citiesData = cities
    if (countries && Array.isArray(countries) && countries.length > 0) {
       citiesData = citiesData.filter(city => countries.includes(city.country))
@@ -34,7 +34,7 @@ export const useCities = (country_codes?: Array<string>) => {
 };
 
 
-export const useCitiesIds = (countries?: Array<string> | null) => {
+export const useCitiesIds = (countries?: string | number | (string | number)[] | undefined) => {
    const { data, isFetching, isFetched } = useQuery({
       queryKey: ['cities_id', countries, ],
       queryFn: () => getCitiesIds(countries),

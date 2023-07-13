@@ -1,13 +1,9 @@
-import { MultiSelect, MultiSelectProps, Option, useMultiSelect } from 'chakra-multiselect'
-import { FC, useState } from 'react'
-import { Loading } from '../loading';
-import { ChangeHandler, UseFormRegister } from 'react-hook-form';
-import { forwardRef } from '@chakra-ui/react';
-
+import { MultiSelect, MultiSelectProps, useMultiSelect } from 'chakra-multiselect'
+import { FC } from 'react'
 
 export type MultipleSelectProps = {
   name: string;
-  handleChange: (v: any) => void,
+  handleChange: (v: string | number | (string | number)[]) => void,
 }
 
 export const MultipleSelect: FC<
@@ -15,7 +11,7 @@ export const MultipleSelect: FC<
   Partial<Pick<MultiSelectProps, 'onChange' | 'value'>> & MultipleSelectProps
 > = ({
   handleChange,
-  name, onChange: _onChange, onBlur: _onBlur, value: _value, options: _options, ...props }) => {
+  name, onChange: _onChange, value: _value, options: _options, ...props }) => {
 
   const { value, options, onChange } = useMultiSelect({
     value: _value ? _value : [],
@@ -23,14 +19,12 @@ export const MultipleSelect: FC<
     onChange: _onChange,
   })
 
-  console.log({ value, options, props });
-
   return (
     <MultiSelect
       name={name}
       value={value}
       options={options}
-      onChange={(val: any) => {
+      onChange={(val: string | number | Array<string | number>) => {
         onChange?.(val)
         handleChange(val)
       }}

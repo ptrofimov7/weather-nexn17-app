@@ -20,5 +20,9 @@ export const getDateFewDaysAgo = (numberDates: number) => {
   return formatDate(date);
 }
 
-export const roundValue = (value: number, fraction: number = 2) => Math.round(10**fraction * value)/10**fraction
-
+export const roundValue = (value: number | null, fraction: number = 2) => {
+  if (value === null) {
+    return 0
+  }
+  return Math.round(10**fraction * value)/10**fraction
+}

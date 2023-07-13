@@ -1,5 +1,5 @@
 import { InputField } from '@/components/form'
-import React, { useCallback, useEffect } from 'react'
+import React from 'react'
 import { Box, Stack } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { CityFilters } from '../types';
@@ -8,7 +8,11 @@ import { useCountries } from '../api/get-countries';
 import { Loading } from '@/components/loading';
 import { Button } from '@/components/button';
 
-export const CityFiltersForm = ({ onChange }: any) => {
+type CityFiltersForm = {
+   onChange: (value: CityFilters) => void;
+}
+
+export const CityFiltersForm = ({ onChange }: CityFiltersForm) => {
 
    const { register, handleSubmit, formState, getValues, clearErrors, setValue } =
       useForm<CityFilters>({
@@ -16,19 +20,18 @@ export const CityFiltersForm = ({ onChange }: any) => {
          defaultValues: {
             temperature_min: -80,
             temperature_max: 80,
-            country_code: null
+            country_code: undefined
          }
       });
 
    const countries = useCountries()
 
-   const onSubmit = (data?: any) => {
+   const onSubmit = (data: CityFilters) => {
       console.log("Отправка формы", JSON.stringify(data));
       onChange(data)
    }
 
-   const handleChange = (val: any) => {
-      console.log({ val });
+   const handleChange = (val: string | number | (string | number)[]) => {
       setValue('country_code', val)
    }
 
@@ -66,11 +69,10 @@ export const CityFiltersForm = ({ onChange }: any) => {
                   },
                   valueAsNumber: true,
                   validate: (value) => Number(value) <= Number(getValues("temperature_max")) || 'Min should be less max!',
-                  onChange: (e: any) => {
+                  onChange: () => {
                      if (formState.errors.temperature_min) {
                         clearErrors('temperature_min')
                      }
-                     console.log({ errorMin: formState.errors });
                   }
                })}
                error={formState.errors['temperature_min']}
@@ -91,11 +93,10 @@ export const CityFiltersForm = ({ onChange }: any) => {
                   },
                   valueAsNumber: true,
                   validate: (value) => Number(getValues("temperature_min")) <= Number(value) || 'Max should be more min',
-                  onChange: (e: any) => {
+                  onChange: () => {
                      if (formState.errors.temperature_max) {
                         clearErrors('temperature_max')
                      }
-                     console.log({ errorMax: formState.errors });
                   }
                })}
                error={formState.errors['temperature_max']}

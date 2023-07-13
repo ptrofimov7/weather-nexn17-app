@@ -5,7 +5,12 @@ import { apiForecastClient } from "@/lib/api-client";
 import { cities } from "@/data/cities";
 import { useQuery } from "@tanstack/react-query";
 
-export const getHistoricalMeanTemperature = async (ids?: Array<number>): Promise<any[]> => {
+type HistoricalMeanTempareture = {
+   time: string;
+   temperature_mean: number;
+}
+
+export const getHistoricalMeanTemperature = async (ids?: Array<number>): Promise<HistoricalMeanTempareture[]> => {
    let citiesData = cities
 
    if (ids && Array.isArray(ids) && ids.length > 0) {
@@ -17,21 +22,20 @@ export const getHistoricalMeanTemperature = async (ids?: Array<number>): Promise
    }))) as Record<string, any>[]
 
 
-   const times = data?.[0]?.daily?.time
-   let temp = {} as Record<string, any>
+   const times = data?.[0]?.daily?.time as string[]
+   let temp = {} as Record<string, Array<number | null>>
 
    data.forEach((element) => {
-      const { temperature_2m_min,  temperature_2m_max} = element.daily
-      let temperature_mean = [] as any
-      times.forEach((_: any, index: number) => {
-         const temperature = roundValue((temperature_2m_min[index] + temperature_2m_max[index])/2)
+      const { temperature_2m_min, temperature_2m_max } = element.daily
+      let temperature_mean = [] as (number | null)[]
+      times.forEach((_: unknown, index: number) => {
+         const temperature = roundValue((temperature_2m_min[index] + temperature_2m_max[index]) / 2)
          temperature_mean.push(temperature)
       })
-      //console.log({temperature_mean});
 
-      temperature_mean.forEach((element: any, index: number) => {
-         if (!temp[times[index] as number]) {
-            temp[times[index] as number] = []
+      temperature_mean.forEach((element: number | null, index: number) => {
+         if (!temp[times[index]]) {
+            temp[times[index]] = []
          }
          temp[times[index]].push(element)
       });
@@ -39,25 +43,23 @@ export const getHistoricalMeanTemperature = async (ids?: Array<number>): Promise
 
    const result = Object.entries(temp).map(element => {
       const [time, temperature_mean_values] = element
-      //console.log({element});
 
-      const temperature_mean = roundValue(temperature_mean_values.reduce((acc: number, cur: number) => {
-         return acc + cur
-      }, 0)/(temperature_mean_values.length || 1))
+      const temperature_mean = roundValue(temperature_mean_values.reduce((acc: number, cur: number | null) => {
+         return acc + (cur ?? 0)
+      }, 0) / (temperature_mean_values.length || 1))
       return {
          time,
          temperature_mean
       }
    })
 
-   //console.log({result, data, temp});
- return result
+   return result
 };
 
-export const useHistoricalMeanTemperature = (ids?: Array<number>) => {
+export const useHistoricalMeanTemperature = (ids?: Array<number> | number) => {
    const { data, isFetching, isFetched } = useQuery({
       queryKey: ['weather_last_week', ids],
-      queryFn: () => getHistoricalMeanTemperature(ids),
+      queryFn: () => getHistoricalMeanTemperature(typeof (ids) === 'number' ? [ids] : ids),
       initialData: [],
    });
 

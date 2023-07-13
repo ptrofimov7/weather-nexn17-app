@@ -1,10 +1,9 @@
-import { City } from "../types";
+import { Option } from 'chakra-multiselect';
 import { cities } from "@/data/cities";
 import { useQuery } from "@tanstack/react-query";
-import { resourceLimits } from "worker_threads";
 
-export const getCountries = async (country_codes?: Array<string>): Promise<any[]> => {
-   let countriesData = new Map()
+export const getCountries = async (country_codes?: Array<string>): Promise<Option[]> => {
+   let countriesData = new Map<string, string>()
    let citiesData = cities
    if (country_codes && Array.isArray(country_codes) && country_codes.length > 0) {
       citiesData = citiesData.filter(city => country_codes.includes(city.country_code))
@@ -15,10 +14,9 @@ export const getCountries = async (country_codes?: Array<string>): Promise<any[]
 
    const result = Array.from(countriesData.keys()).map((key) => {
       return { label: key, value: countriesData.get(key)}
-   })
+   }) as Option[]
 
-   result.sort((a: any, b: any) => a.value.localeCompare(b.value))
-   console.log({result});
+   result.sort((a: Option, b: Option) => (a.value as string).localeCompare((b.value as string)))
    return Promise.resolve(result)
 };
 

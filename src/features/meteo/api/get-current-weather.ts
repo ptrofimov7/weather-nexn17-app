@@ -9,17 +9,17 @@ import { apiForecastClient } from "@/lib/api-client";
 import { useQuery } from "@tanstack/react-query";
 import { WeatherFilter } from "../types";
 
-// type GetCurrentWeatherOptions = {
-//    id: number;
-//    latitude: string,
-//    longitude: string
-//    name?: string;
-//    country_code?: string,
-// };
+type GetCurrentWeatherReturn = {
+   id: number,
+   name: string,
+   temperature_max: number | undefined,
+   temperature_min: number | undefined,
+   windDirection_dominant: number | undefined,
+};
 
-export const getCurrentWeather = async ({ids, temperature_min, temperature_max}: WeatherFilter): Promise<any> => {
+export const getCurrentWeather = async ({ids, temperature_min, temperature_max}: WeatherFilter): Promise<GetCurrentWeatherReturn[]> => {
 
-   if (ids === null) {
+   if (!ids) {
       return []
    }
    let citiesData = cities
@@ -30,20 +30,17 @@ export const getCurrentWeather = async ({ids, temperature_min, temperature_max}:
    const cityMap = citiesData.reduce((acc, cur, index) => {
       const key = `${index}`
        return {...acc, [key]: cur}
-   }, {}) as Record<any, any>
+   }, {}) as Record<string, number| string | boolean>[]
 
    let data =  (await Promise.all(citiesData.map(({ latitude, longitude }: { latitude: number, longitude: number }) => {
       return apiForecastClient.get(`/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,winddirection_10m_dominant&timezone=auto&forecast_days=1`)
    }))) as Array<any>
 
-   //console.log({cityMap, data});
-
-   data = data.map(((element, index) => {
-      const { temperature_2m_max, temperature_2m_min, winddirection_10m_dominant, latitude, longitude } = element.daily
-      const key = `${index}`
+   data = data.map(((element, index: number) => {
+      const { temperature_2m_max, temperature_2m_min, winddirection_10m_dominant} = element.daily
       return {
-         id: cityMap?.[key]?.id || Date.now(),
-         name: cityMap?.[key]?.name || '',
+         id: cityMap?.[index]?.id || Date.now(),
+         name: cityMap?.[index]?.name || '',
          temperature_max: temperature_2m_max?.[0],
          temperature_min: temperature_2m_min?.[0],
          windDirection_dominant: winddirection_10m_dominant?.[0],
@@ -52,14 +49,12 @@ export const getCurrentWeather = async ({ids, temperature_min, temperature_max}:
    }))
 
    if (Number(temperature_min) <= Number(temperature_max)) {
-      data = data.filter((weather: any) => {
+      data = (data as GetCurrentWeatherReturn[]).filter((weather: GetCurrentWeatherReturn) => {
          return (Number(weather.temperature_min) >= Number(temperature_min) && Number(weather.temperature_max) <= Number(temperature_max))
       })
    }
-   console.log({ids, data, temperature_min, temperature_max});
 
-
-   return data
+   return data as GetCurrentWeatherReturn[]
 
 };
 

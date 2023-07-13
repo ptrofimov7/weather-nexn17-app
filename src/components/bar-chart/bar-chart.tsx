@@ -12,43 +12,16 @@ import {
 } from 'recharts';
 import { Loading } from '../loading';
 
-// const data = [
-//   {
-//     time: 'Page A',
-//     temperature_mean: 4000,
-//   },
-//   {
-//     time: 'Page B',
-//     temperature_mean: -3000,
-//   },
-//   {
-//     time: 'Page C',
-//     temperature_mean: -2000,
-//   },
-//   {
-//     time: 'Page D',
-//     temperature_mean: 2780,
-//   },
-//   {
-//     time: 'Page E',
-//     temperature_mean: -1890,
-//   },
-//   {
-//     time: 'Page F',
-//     temperature_mean: 2390,
-//   },
-//   {
-//     time: 'Page G',
-//     temperature_mean: 3490,
-//   },
-// ];
+type BarChartComponentProps = {
+   data: Record<string, string | number>[], data_key: string, isLoading: boolean
+}
 
-export const BarChartComponent = ({ data, data_key, isLoading }: {data: any[], data_key: string, isLoading: boolean}) => {
+export const BarChartComponent = ({ data, data_key, isLoading }: BarChartComponentProps) => {
 
    if (isLoading) return <Loading />;
 
    if (!data) return null;
-   
+
     return (
       <ResponsiveContainer width="100%" height="100%">
         <BarChart

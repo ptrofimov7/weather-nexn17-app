@@ -31,8 +31,6 @@ export const InputField = forwardRef(
       ...inputProps
     } = props;
 
-    // console.log({props});
-
     return (
       <FormControl>
         {label && <FormLabel>{label}</FormLabel>}

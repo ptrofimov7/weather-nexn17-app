@@ -1,4 +1,4 @@
 export type Entity = {
-  id: string;
-  createdAt: number;
+  id: number;
+  createdAt?: number;
 };

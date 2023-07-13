@@ -1,0 +1,25 @@
+export const cities = [
+   { id: 727011, name: "Sofia", country_code: 'BG', country: "Bulgaria", latitude: 42.69751, longitude: 23.32415 },
+   { id: 726050, name: "Varna", country_code: 'BG', country: "Bulgaria", "latitude": 43.21667, "longitude": 27.91667 },
+   { id: 732770, name: "Burgas", country_code: 'BG', country: "Bulgaria", "latitude": 42.50606, "longitude": 27.46781 },
+   { id: 726848, name: "Stara Zagora", country_code: 'BG', country: "Bulgaria", "latitude": 42.43278, "longitude": 25.64194 },
+   { id: 728193, name: "Plovdiv", country_code: 'BG', country: "Bulgaria", "latitude": 42.15, "longitude": 24.75 },
+   // { id: 2282241, name: "Rousse", country_code: 'BG', country: "Bulgaria", "latitude": 7.82785, "longitude": -5.69581 },
+   { id: 730435, name: "Haskovo", country_code: 'BG', country: "Bulgaria", "latitude": 41.93415, "longitude": 25.55557 },
+
+   { id: 703448, name: "Kyiv", country_code: 'UA', country: "Ukraine", "latitude": 50.45466, "longitude": 30.5238 },
+   { id: 694423, name: "Sebastopol", country_code: 'UA', country: "Ukraine", "latitude": 44.60795, "longitude": 33.52134 },
+   { id: 6300968, name: "Odesa", country_code: 'UA', country: "Ukraine", "latitude": 46.42677, "longitude": 30.67646 },
+   { id: 706483, name: "Kharkiv", country_code: 'UA', country: "Ukraine", "latitude": 49.98081, "longitude": 36.25272 },
+   { id: 709717, name: "Donetsk", country_code: 'UA', country: "Ukraine", "latitude": 48.023, "longitude": 37.80224 },
+   { id: 709930, name: "Dnipro", country_code: 'UA', country: "Ukraine", "latitude": 48.46664, "longitude": 35.04066 },
+   { id: 686967, name: "Zhytomyr", country_code: 'UA', country: "Ukraine", "latitude": 50.26487, "longitude": 28.67669 },
+
+   { id: 618426, name: "Chisinau", country_code: 'MD', country: 'Moldova', "latitude": 47.00556, "longitude": 28.8575 },
+   { id: 617239, name: "Tiraspol", country_code: 'MD', country: 'Moldova', "latitude": 46.84274, "longitude": 29.62909 },
+   { id: 618577, name: "Tighina", country_code: 'MD', country: 'Moldova', "latitude": 46.83156, "longitude": 29.47769 },
+   { id: 617180, name: "Ungheni", country_code: 'MD', country: 'Moldova', "latitude": 47.21079, "longitude": 27.80047 },
+   // { id: 617180, name: "Rîbniţa", country_code: 'MD', country: 'Moldova', "latitude": 47.76817, "longitude": 29.01 },
+   { id: 618456, name: "Cahul", country_code: 'MD', country: 'Moldova', "latitude": 45.90425, "longitude": 28.19929 },
+   { id: 617367, name: "Soroca", country_code: 'MD', country: 'Moldova', "latitude": 48.15659, "longitude": 28.28489 },
+]

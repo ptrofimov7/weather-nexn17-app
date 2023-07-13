@@ -1,4 +1,5 @@
 import { extendTheme } from '@chakra-ui/react';
+import { MultiSelectTheme } from 'chakra-multiselect';
 
 const colors = {
   primary: '#1a365d',
@@ -19,4 +20,16 @@ const styles = {
   },
 };
 
-export const theme = extendTheme({ colors, styles });
+export const theme = extendTheme({
+  colors, styles, components: {
+    MultiSelect: {
+      ...MultiSelectTheme,
+      baseStyle: (props: any) => {
+        const baseStyle = MultiSelectTheme.baseStyle(props) as any
+        return {
+          ...baseStyle,
+        }
+      },
+    },
+  }
+});

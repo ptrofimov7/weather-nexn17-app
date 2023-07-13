@@ -13,6 +13,7 @@ import {
 import { Entity } from '@/types';
 
 import { Loading } from '../loading';
+import { useState } from 'react';
 
 type DataTableColumn<Entry> = {
   title: string;
@@ -31,6 +32,9 @@ export const DataTable = <Entry extends Entity>({
   columns,
   isLoading,
 }: DataTableProps<Entry>) => {
+  const [activeRowId, setActiveRowId] = useState<number| undefined>(undefined)
+  console.log({activeRowId, id: data?.[0].id});
+
   if (isLoading) {
     return <Loading />;
   }
@@ -69,8 +73,14 @@ export const DataTable = <Entry extends Entity>({
           <Tbody>
             {data?.map((entry, entryIndex) => (
               <Tr
-                data-testid={`table-row-${entryIndex}`}
-                key={entry.id || entryIndex}
+                data-testid={`table-row-${entry.id}`}
+                key={entry.id}
+                onClick = {(e) => {
+                  setActiveRowId(entry.id)
+                  console.log({entry: entry.id});
+
+                }}
+                color={(activeRowId && activeRowId == entry.id) ? 'red' : 'unset'}
               >
                 {columns.map(
                   (

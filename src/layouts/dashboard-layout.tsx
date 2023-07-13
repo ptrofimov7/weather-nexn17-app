@@ -19,7 +19,7 @@ export const DashboardLayout = ({
   return (
       <Box as="section" h="100vh" overflowY="auto">
         <Navbar />
-        <Container as="main" maxW="container.lg" py="12">
+        <Container as="main" maxW="container.lg" py="12" h='100%'>
           {children}
         </Container>
        </Box>

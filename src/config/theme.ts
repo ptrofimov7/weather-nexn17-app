@@ -10,12 +10,12 @@ const styles = {
   global: {
     "html, body": {
       height: "100%",
-      bg: "gray.50",
+      bg: "gray.400",
     },
 
     "#__next": {
       height: "100%",
-      bg: "gray.50",
+      bg: "gray.400",
     },
     "input::placeholder": {
       color: "white",
@@ -25,7 +25,7 @@ const styles = {
     },
 
     ".chakra-input button": {
-      background: "gray.600!important",
+      background: "gray.500!important",
       color: "white",
     },
     "*": {

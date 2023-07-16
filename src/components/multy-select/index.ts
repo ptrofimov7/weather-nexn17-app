@@ -1,1 +1,1 @@
-export * from './multy-select';
+export * from "./multy-select";

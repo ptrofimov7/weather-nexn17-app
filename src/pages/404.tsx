@@ -1,7 +1,7 @@
-import { Center } from '@chakra-ui/react';
+import { Center } from "@chakra-ui/react";
 
-import { Link } from '@/components/link';
-import { NotFound } from '@/components/not-found';
+import { Link } from "@/components/link";
+import { NotFound } from "@/components/not-found";
 
 const NotFoundPage = () => {
   return (

@@ -1,4 +1,4 @@
-import { Entity } from '@/types';
+import { Entity } from "@/types";
 
 export type CityTableData = Entity & {
   name: string;
@@ -7,7 +7,7 @@ export type CityTableData = Entity & {
   windDirection_dominant: string;
 };
 
-export type City =  Entity & {
+export type City = Entity & {
   id: number;
   name: string;
   country?: string;
@@ -15,17 +15,18 @@ export type City =  Entity & {
   country_id?: number;
   latitude: number;
   longitude: number;
-}
+};
 
 export type CityFilters = {
-  temperature_min: number,
-  temperature_max: number,
-  country_code?: string | number | (string | number)[]
-}
-
+  temperature_min: number;
+  temperature_max: number;
+  country_code?: string | number | (string | number)[];
+};
 
 export type WeatherFilter = {
-  ids: Array<number>| null | undefined, temperature_min: number | undefined, temperature_max: number | undefined
-}
+  ids: Array<number> | null | undefined;
+  temperature_min: number | undefined;
+  temperature_max: number | undefined;
+};
 
-export type CountryFilter = { label: string; value: string | undefined;}
+export type CountryFilter = { label: string; value: string | undefined };

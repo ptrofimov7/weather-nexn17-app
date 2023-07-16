@@ -1,24 +1,24 @@
-import { Button } from '@chakra-ui/react';
-import NextLink from 'next/link';
-import { ReactNode } from 'react';
+import { Button } from "@chakra-ui/react";
+import NextLink from "next/link";
+import { ReactNode } from "react";
 
 const variants = {
   link: {
-    variant: 'link',
-    color: 'primary',
+    variant: "link",
+    color: "primary",
   },
   solid: {
-    variant: 'solid',
-    bg: 'primary',
-    color: 'primaryAccent',
+    variant: "solid",
+    bg: "primary",
+    color: "primaryAccent",
     _hover: {
-      opacity: '0.9',
+      opacity: "0.9",
     },
   },
   outline: {
-    variant: 'outline',
-    color: 'primary',
-    bg: 'white',
+    variant: "outline",
+    color: "primary",
+    bg: "white",
   },
 };
 
@@ -33,7 +33,7 @@ export type LinkProps = {
 export const Link = ({
   href,
   children,
-  variant = 'link',
+  variant = "link",
   icon,
   shallow = false,
 }: LinkProps) => {

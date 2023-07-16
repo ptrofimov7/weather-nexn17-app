@@ -78,9 +78,6 @@ export const theme = extendTheme({
             ...baseStyle.button,
             variant: "solid",
           },
-          input: {
-            ...baseStyle.input,
-          },
         };
       },
     },

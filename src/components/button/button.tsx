@@ -1,4 +1,4 @@
-import { Button as ChakraButton } from '@chakra-ui/react';
+import { Button as ChakraButton, ButtonProps as ChakraButtonProps } from '@chakra-ui/react';
 import { MouseEventHandler, ReactNode } from 'react';
 
 const variants = {
@@ -25,7 +25,7 @@ export type ButtonProps = {
   isDisabled?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   icon?: JSX.Element;
-};
+} & Partial<Omit<ChakraButtonProps, "variant" | "type" | "onClick" | "isLoading" | "isDisabled">>;
 
 export const Button = ({
   variant = 'solid',

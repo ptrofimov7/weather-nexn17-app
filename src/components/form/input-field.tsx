@@ -1,9 +1,12 @@
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   FormControl,
   FormHelperText,
   FormLabel,
   forwardRef,
   Input,
+  InputGroup,
+  InputRightElement,
   Textarea,
 } from '@chakra-ui/react';
 import {
@@ -36,17 +39,32 @@ export const InputField = forwardRef(
         {label && <FormLabel>{label}</FormLabel>}
         {type === 'textarea' ? (
           <Textarea
-            bg="white"
+            bg="gray"
             rows={8}
             {...inputProps}
             ref={ref}
           />
-        ) : (
+        ) : ((type === 'number') ?
+          <InputGroup>
+            <Input
+              bg="gray"
+              color='white'
+              type={type}
+              {...inputProps}
+              ref={ref}
+
+            />
+            <InputRightElement>
+              <ChevronDownIcon color="white" />
+            </InputRightElement>
+          </InputGroup> :
           <Input
-            bg="white"
+            bg="gray"
+            color='white'
             type={type}
             {...inputProps}
             ref={ref}
+
           />
         )}
         {error && (

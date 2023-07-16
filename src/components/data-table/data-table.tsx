@@ -61,12 +61,12 @@ export const DataTable = <Entry extends Entity>({
       borderWidth="1px"
       bg="whiteAlpha.400"
     >
-      <Box overflowX="auto">
-        <Table variant="striped" w="full">
+      <Box style={{display: 'flex', alignItems:'stretch', overflowY: "auto" }} h='100%'>
+        <Table  w="full" color="white" background='dark' h='100%'>
           <Thead>
-            <Tr>
+            <Tr style={{ position: 'sticky', top: '0', background: 'black', color: "white" }}>
               {columns.map((column, index) => (
-                <Th key={column.title + index}>
+                <Th key={column.title + index} style={{ color: 'white', background: 'dark'}}>
                   {column.title}
                 </Th>
               ))}
@@ -80,7 +80,7 @@ export const DataTable = <Entry extends Entity>({
                 onClick = {(e) => {
                   setActiveRowId(entry.id)
                 }}
-                color={(activeRowId && activeRowId == entry.id) ? 'red' : 'unset'}
+                background={(activeRowId && activeRowId == entry.id) ? 'blue.900' : (entryIndex % 2 === 0 ? 'blackAlpha.800': 'blackAlpha.700')}
               >
                 {columns.map(
                   (
@@ -88,7 +88,7 @@ export const DataTable = <Entry extends Entity>({
                     columnIndex
                   ) => (
                     <Td key={title + columnIndex}>
-                      <Text>
+                      <Text textAlign={columnIndex === 0 ? 'left': 'right'}>
                         {render
                           ? render({ entry })
                           : `${entry[field]}`}

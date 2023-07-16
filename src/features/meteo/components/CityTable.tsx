@@ -41,7 +41,7 @@ export const CityTable = ({
    const tableColumns = getTableColumns();
    const element = React.cloneElement(React.Children.only(children), { columns: tableColumns })
    return (
-      <Box>
+      <Box flexGrow={1} h={{base: '70%'}}>
          {element}
       </Box>
    );

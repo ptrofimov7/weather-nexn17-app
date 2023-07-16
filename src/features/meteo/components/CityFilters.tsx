@@ -18,8 +18,8 @@ export const CityFiltersForm = ({ onChange }: CityFiltersForm) => {
       useForm<CityFilters>({
          mode: 'onBlur',
          defaultValues: {
-            temperature_min: -80,
-            temperature_max: 80,
+            temperature_min: undefined,
+            temperature_max: undefined,
             country_code: undefined
          }
       });
@@ -36,19 +36,18 @@ export const CityFiltersForm = ({ onChange }: CityFiltersForm) => {
    }
 
    return (
-      <Box w="full">
-         <form  onSubmit={handleSubmit(onSubmit)}>
+      <Box w="full" h={'fit-content'}>
+         <form  onSubmit={handleSubmit(onSubmit)} style={{marginBlock: '20', display: 'flex', flexDirection: 'column'}}>
          <Stack
             as="fieldset"
-            w="full"
-            spacing="8"
-
+            direction={['column', 'column', 'row']}
+            spacing="6"
+            marginBlockEnd={4}
          >
             {!countries.isLoading ?
                <MultipleSelect
-                  label="Country"
                   options={countries.data}
-                  placeholder='Select ...'
+                  placeholder='Country'
                   searchPlaceholder='Search ...'
                   name='country_code'
                   handleChange={handleChange}
@@ -57,7 +56,7 @@ export const CityFiltersForm = ({ onChange }: CityFiltersForm) => {
             <InputField
                type="number"
                id="min"
-               label="Min"
+               placeholder="Min"
                {...register('temperature_min', {
                   min: {
                      value: -80,
@@ -68,10 +67,10 @@ export const CityFiltersForm = ({ onChange }: CityFiltersForm) => {
                      message: `Max value is 80`
                   },
                   valueAsNumber: true,
-                  validate: (value) => Number(value) <= Number(getValues("temperature_max")) || 'Min should be less max!',
+                  validate: () => Number(getValues("temperature_min")) <= Number(getValues("temperature_max")) || 'Min should be less max!',
                   onChange: () => {
-                     if (formState.errors.temperature_min) {
-                        clearErrors('temperature_min')
+                     if (formState.errors['temperature_max'] || formState.errors['temperature_min']) {
+                        clearErrors(['temperature_min', 'temperature_max'])
                      }
                   }
                })}
@@ -81,7 +80,7 @@ export const CityFiltersForm = ({ onChange }: CityFiltersForm) => {
             <InputField
                type="number"
                id="max"
-               label="Max"
+               placeholder="Max"
                {...register('temperature_max', {
                   min: {
                      value: -80,
@@ -92,17 +91,17 @@ export const CityFiltersForm = ({ onChange }: CityFiltersForm) => {
                      message: `Max value is 80`
                   },
                   valueAsNumber: true,
-                  validate: (value) => Number(getValues("temperature_min")) <= Number(value) || 'Max should be more min',
+                  validate: () => Number(getValues("temperature_min")) <= Number(getValues("temperature_max")) || 'Max should be more min',
                   onChange: () => {
-                     if (formState.errors.temperature_max) {
-                        clearErrors('temperature_max')
+                     if (formState.errors['temperature_max'] || formState.errors['temperature_min']) {
+                        clearErrors(['temperature_min', 'temperature_max'])
                      }
                   }
                })}
                error={formState.errors['temperature_max']}
             />
          </Stack>
-         <Button type='submit' isDisabled={Object.keys(formState.errors).length > 0}>Apply</Button>
+         <Button type='submit' isDisabled={Object.keys(formState.errors).length > 0} marginInline='auto' >Apply</Button>
          </form>
       </Box>
    );

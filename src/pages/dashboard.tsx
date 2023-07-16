@@ -1,5 +1,5 @@
-import { Heading, HStack } from '@chakra-ui/react';
-import { ReactElement, useCallback, useEffect, useState } from 'react';
+import { Heading, HStack, Stack } from '@chakra-ui/react';
+import { ReactElement, useEffect, useState } from 'react';
 
 import { Seo } from '@/components/seo';
 import { DashboardLayout } from '@/layouts/dashboard-layout';
@@ -22,7 +22,6 @@ const DashboardJobsPage = () => {
    const weather = useCurrentWeather({ ids: citiesData, ...filters })
 
    useEffect(() => {
-
       setActiveRowId(undefined)
 
    }, [filters])
@@ -41,20 +40,33 @@ const DashboardJobsPage = () => {
          >
             <Heading>Weather</Heading>
          </HStack>
-         <BarChartComponent
-            data={history.data || []}
-            data_key='temperature_mean'
-            isLoading={history.isLoading}
-         />
-         <CityFiltersForm onChange={handleChange} />
-         <CityTable>
-            <DataTable
-               isLoading={weather.isLoading || false}
-               data={weather.data}
-               activeRowId={activeRowId}
-               setActiveRowId={setActiveRowId}
+         <Stack as="div"
+            direction={['column', 'column', 'column','column', 'row']}
+            spacing="8"
+            w='full'
+            h='calc(100% - 200px)'
+         >
+            <BarChartComponent
+               data={history.data || []}
+               data_key='temperature_mean'
+               isLoading={history.isLoading}
             />
-         </CityTable>
+            <Stack as="div"
+               direction={'column'}
+               spacing="8"
+               h="full"
+            >
+               <CityFiltersForm onChange={handleChange} />
+               <CityTable>
+                  <DataTable
+                     isLoading={weather.isLoading || false}
+                     data={weather.data}
+                     activeRowId={activeRowId}
+                     setActiveRowId={setActiveRowId}
+                  />
+               </CityTable>
+            </Stack>
+         </Stack>
       </>
    );
 };

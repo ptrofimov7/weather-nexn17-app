@@ -19,7 +19,7 @@ export const DashboardLayout = ({
   return (
       <Box as="section" h="100vh" overflowY="auto">
         <Navbar />
-        <Container as="main" maxW="container.lg" py="12" h='100%'>
+        <Container as="main" maxW={{base: "1200px", xl: "1400px"}} py="12" h='100%' px={{base: 3, md: 12, xl: 6}}>
           {children}
         </Container>
        </Box>
@@ -29,7 +29,7 @@ export const DashboardLayout = ({
 const Navbar = () => {
   return (
     <Box as="nav" bg="primary" color="primaryAccent">
-      <Container maxW="container.lg" size="3xl" py="3">
+      <Container maxW="container.lg" size="3xl" mt={3} mb={{base: 0, xl: 3}}>
         <Flex justify="space-between">
           <HStack>
             <Link variant="solid" href="/">
